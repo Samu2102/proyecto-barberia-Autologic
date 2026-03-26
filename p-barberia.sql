@@ -1,9 +1,10 @@
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 19-03-2026 a las 14:55:02
+-- Tiempo de generación: 26-03-2026 a las 13:29:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -194,6 +195,19 @@ CREATE TABLE `detalle_venta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`id_detalle_venta`, `id_venta`, `id_producto`, `cantidad`, `precio`, `subtotal`) VALUES
+(1, 1, 1, 2, 10000.00, 20000.00),
+(2, 2, 2, 1, 12000.00, 12000.00),
+(3, 3, 3, 3, 15000.00, 45000.00),
+(4, 4, 4, 1, 20000.00, 20000.00),
+(5, 5, 5, 2, 5000.00, 10000.00),
+(6, 6, 6, 1, 30000.00, 30000.00),
+(7, 7, 7, 1, 150000.00, 150000.00);
+
+--
 -- Disparadores `detalle_venta`
 --
 DELIMITER $$
@@ -343,13 +357,13 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre`, `descripcion`, `stock`, `precio`) VALUES
-(1, 'Gel', 'Fijador para cabello', 50, 20000.00),
-(2, 'Cera', 'Moldeador de cabello', 40, 25000.00),
-(3, 'Shampoo', 'Limpieza capilar', 60, 30000.00),
-(4, 'Aceite', 'Aceite para barba', 30, 28000.00),
-(5, 'Peine', 'Accesorio de peinado', 20, 12000.00),
-(6, 'Tijeras', 'Herramienta profesional', 10, 60000.00),
-(7, 'Navaja', 'Navaja de afeitar', 15, 50000.00);
+(1, 'Gel', 'Fijador para cabello', 48, 20000.00),
+(2, 'Cera', 'Moldeador de cabello', 39, 25000.00),
+(3, 'Shampoo', 'Limpieza capilar', 57, 30000.00),
+(4, 'Aceite', 'Aceite para barba', 29, 28000.00),
+(5, 'Peine', 'Accesorio de peinado', 18, 12000.00),
+(6, 'Tijeras', 'Herramienta profesional', 9, 60000.00),
+(7, 'Navaja', 'Navaja de afeitar', 14, 50000.00);
 
 -- --------------------------------------------------------
 
@@ -461,6 +475,19 @@ CREATE TABLE `ventas` (
   `total` decimal(10,2) DEFAULT NULL,
   `id_cliente` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_venta`, `fecha`, `total`, `id_cliente`) VALUES
+(1, '2024-02-10', 35000.00, 1),
+(2, '2024-02-10', 22000.00, 2),
+(3, '2024-02-10', 47000.00, 3),
+(4, '2024-02-11', 22000.00, 4),
+(5, '2024-02-11', 35000.00, 5),
+(6, '2024-02-11', 57000.00, 6),
+(7, '2024-02-12', 179000.00, 7);
 
 -- --------------------------------------------------------
 
@@ -653,7 +680,7 @@ ALTER TABLE `detalle_pagos`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `horarios_barbero`
@@ -707,7 +734,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -755,22 +782,10 @@ ALTER TABLE `inventario_movimientos`
   ADD CONSTRAINT `inventario_movimientos_ibfk_2` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
 
 --
--- Filtros para la tabla `pagos`
---
-ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_detalle_pago`) REFERENCES `detalle_pagos` (`id_detalle_pago`);
-
---
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`);
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
